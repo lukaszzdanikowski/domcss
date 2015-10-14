@@ -1,0 +1,32 @@
+{
+  "name": "domcss",
+  "version": "1.0.0",
+  "description": "CSS parser and CSS Object Model builder",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukaszzdanikowski/domcss.git"
+  },
+  "keywords": [
+    "DOM",
+    "CSS",
+    "Parser",
+    "CSSStyleSheet"
+  ],
+  "author": "Łukasz Zdanikowski",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/lukaszzdanikowski/domcss/issues"
+  },
+  "homepage": "https://github.com/lukaszzdanikowski/domcss#readme",
+  "devDependencies": {
+    "eslint": "^1.6.0",
+    "jscs": "^2.3.0"
+  }
+}

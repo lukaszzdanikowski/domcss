@@ -1,0 +1,183 @@
+<html>
+    <head>
+        <script src="../src/parser/CSSParser.js"></script>
+        <style id="cssText">
+            .test1 div, .test2.test3 div {
+                display: block;
+                background-color: red;
+                width: 100px;
+                height: 100px;
+            }
+            [max-width='100px'].test4 {
+                display: block;
+                background-color: blue;
+                font-size: 10px;
+                width: 100px;
+                height: 100px;
+            }
+            .test5[min-width='10px'] {
+                display: block;
+                background-color: green;
+                width: 100px;
+                height: 100px;
+            }
+            /* media rule */
+            @media (min-width: 1px) {
+                .test6 {
+                    display: block;
+                    background-color: white;
+                    border: 1px solid black;
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+            @media screen, print, (min-width:980px){
+                .test7 {
+                    color:red;
+                }
+            }
+            @font-face {
+                font-family: PublicVintage;
+                src: url(/PublicVintage.otf) format('opentype');
+            }
+
+            .test8 {
+
+            }
+
+
+            @charset 'utf-8';
+
+            @custom-media --narrow-window (max-width: 30em);
+
+            @media (--narrow-window) {
+              /* narrow window styles */
+            }
+
+            @keyframes colorful-diagonal-slide {
+                from {
+                    left: 0;
+                    top: 0;
+                }
+
+                10% {
+                    background-color: blue;
+                }
+
+                10% {
+                    background-color: green;
+                }
+
+                25%, 75% {
+                    background-color: red;
+                }
+
+                100% {
+                    left: 100px;
+                    top: 100px;
+                }
+            }
+
+            @supports ( display: flex ) {
+                body, #navigation, #content { display: flex; }
+                #navigation { background: blue; color: white; }
+                #article { background: white; color: black; }
+            }
+
+            @supports not ( display: flex ) {
+                body { width: 100%; height: 100%; background: white; color: black; }
+                #navigation { width: 25%; }
+                #article { width: 75%; }
+            }
+
+            @supports ( box-shadow: 0 0 2px black inset ) or
+                    ( -moz-box-shadow: 0 0 2px black inset ) or
+                    ( -webkit-box-shadow: 0 0 2px black inset ) or
+                    ( -o-box-shadow: 0 0 2px black inset ) {
+                .noticebox {
+                    -moz-box-shadow: 0 0 2px black inset;
+                    -webkit-box-shadow: 0 0 2px black inset;
+                    -o-box-shadow: 0 0 2px black inset;
+                    box-shadow: 0 0 2px black inset; /* unprefixed last */
+                    /* override the rule above the @supports rule */
+                    border: none;
+                    padding: 2px;
+                }
+            }
+
+            @import "mystyle1.css";
+
+            @import url("mystyle2.css");
+
+            @import url(mystyle3.css);
+
+            @import "mystyle4.css" screen, print;
+
+            @import url("mystyle5.css") all;
+
+            @import url(mystyle6.css) print;
+
+            @namespace url(http://www.w3.org/1999/xhtml);
+            @namespace svg url(http://www.w3.org/2000/svg);
+
+            @namespace "http://www.w3.org/1999/xhtml";
+            @namespace svg "http://www.w3.org/2000/svg";
+
+            @page :first {
+                margin:2in;
+            }
+
+            @document url(http://www.w3.org/),
+                    url-prefix(http://www.w3.org/Style/),
+                    domain(mozilla.org),
+                    regexp("https:.*") {
+                /* CSS rules here apply to:
+                 + The page "http://www.w3.org/".
+                 + Any page whose URL begins with "http://www.w3.org/Style/"
+                 + Any page whose URL's host is "mozilla.org" or ends with
+                   ".mozilla.org"
+                 + Any page whose URL starts with "https:" */
+
+                /* make the above-mentioned pages really ugly */
+                body { color: purple; background: yellow; }
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="playground">
+            <div class="test1">
+                <div></div>
+            </div>
+            <div class="test2 test3">
+                <div></div>
+            </div>
+
+            <div max-width="100px" class="test4"></div>
+            <div min-width="10px" class="test5"></div>
+
+            <div class="test6"></div>
+        </div>
+        <textarea id="cssTextPreview">
+
+        </textarea>
+
+        <pre id="result">
+
+        </pre>
+        <script>
+            var cssText = document.getElementById("cssText").textContent;
+            var cssTextPreview = document.getElementById("cssTextPreview");
+            var result = document.getElementById("result");
+
+            var CSSParser = window.CSSParser;
+            var css = CSSParser.parse(cssText, {
+                ownerNode: document.getElementById("cssText")
+            });
+
+            cssTextPreview.innerHTML = cssText;
+            result.innerHTML = JSON.stringify(css, {source: '#cssText'});
+
+        </script>
+    </body>
+</html>
